@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :likes, foreign_key: 'user_id'
 
   validates :name, presence: true
-  validates :posts_count, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :posts_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   def recentposts
     posts.order(created_at: :desc).limit(3)

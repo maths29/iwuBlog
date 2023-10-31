@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  subject(:user) { User.new(name: 'Essie', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Software Developer from Ethi.') }
-  subject(:post) { Post.new(Title: 'hello world', text: 'Hello world paragraph', author_id: user.id) }
+  let!(:user) { User.create(name: 'Essie', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Software Developer from Ethi.') }
+
+  subject(:post) { Post.new(Title: 'hello world', text: 'Hello world paragraph', author: user, comments_counter:0, likes_counter:0) }
   before { user.save }
   before { post.save }
   it 'should be valid post' do
@@ -22,6 +23,6 @@ RSpec.describe Post, type: :model do
     expect(post).to_not be_valid
   end
   it 'should have post counter to 1' do
-    expect(post.user.posts_count).to be(1)
+    expect(post.user.posts_counter).to be(1)
   end
 end

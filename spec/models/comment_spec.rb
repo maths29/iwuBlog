@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  subject(:user) { User.new(name: 'marry', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Software Developer from Spain.') }
-  before { user.save }
-  subject(:post) { Post.new(Title: 'hello world', text: 'Hello world paragraph', author_id: user.id) }
-  before { post.save }
-  subject(:comment) { Comment.new(user_id: user.id, post_id: post.id, text: 'this  is my comment') }
+  let!(:user) { User.create(name: 'marry', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Software Developer from Spain.') }
+  
+  let!(:post) { Post.create(Title: 'hello world', text: 'Hello world paragraph', author: user, comments_counter:0, likes_counter:0) }
+  
+  subject(:comment) { Comment.new(user:user, post:post, text: 'this  is my comment') }
   before { comment.save }
 
   it 'should be valid comment' do
@@ -15,7 +15,8 @@ RSpec.describe Comment, type: :model do
     expect(comment.text).to eq 'this  is my comment'
   end
   it 'post comment should be update on comment save' do
-    expect(comment.post.comments.size).to be(1)
+    post.reload
+    expect(post.comments.size).to eq(1)
   end
   it 'comment user id should be same' do
     expect(comment.user.id).to be(user.id)
@@ -24,11 +25,11 @@ RSpec.describe Comment, type: :model do
     expect(comment.post.id).to be(post.id)
   end
   it 'should be invalid on negetive comment counter' do
-    comment.post.comments_count = -1
+    comment.post.comments_counter = -1
     expect(comment.post).to_not be_valid
   end
   it 'should be invalid on non negetive comment counter' do
-    comment.post.comments_count = 'test'
+    comment.post.comments_counter = 'test'
     expect(comment.post).to_not be_valid
   end
 end
