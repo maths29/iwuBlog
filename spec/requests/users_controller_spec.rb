@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do
   describe 'GET #index' do
-  before { get '/users' } # Updated to use the path string directly
+    before { get '/users' } # Updated to use the path string directly
 
     it 'returns a 200 OK status' do
       expect(response).to have_http_status(:ok)
@@ -18,7 +18,7 @@ RSpec.describe UsersController, type: :request do
   end
 
   describe 'GET #show' do
-  before { get '/users/1' } # Updated to use the path string directly
+    before { get '/users/1' } # Updated to use the path string directly
 
     it 'returns a 200 OK status' do
       expect(response).to have_http_status(:ok)
