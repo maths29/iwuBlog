@@ -1,39 +1,35 @@
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
-  describe 'GET /' do
-    before :each do
-      get '/users'
-    end
+RSpec.describe UsersController, type: :request do
+  describe 'GET #index' do
+  before { get '/users' } # Updated to use the path string directly
 
-    it 'returns http success' do
-      expect(response).to have_http_status(:success)
+    it 'returns a 200 OK status' do
+      expect(response).to have_http_status(:ok)
     end
 
     it 'renders the index template' do
-      expect(response).to render_template('index')
+      expect(response).to render_template(:index)
     end
 
-    it 'renders the correct text' do
-      expect(response.body).to match(/List of all Users/)
+    it 'includes the correct placeholder text in the response body' do
+      expect(response.body).to include('Here is a list of users')
     end
   end
 
-  describe 'GET /users/:id' do
-    before :each do
-      get '/users/1'
-    end
+  describe 'GET #show' do
+  before { get '/users/1' } # Updated to use the path string directly
 
-    it 'returns http success' do
-      expect(response).to have_http_status(:success)
+    it 'returns a 200 OK status' do
+      expect(response).to have_http_status(:ok)
     end
 
     it 'renders the show template' do
-      expect(response).to render_template('show')
+      expect(response).to render_template(:show)
     end
 
-    it 'renders the correct text' do
-      expect(response.body).to match(/Show User Profile/)
+    it 'includes the correct placeholder text in the response body' do
+      expect(response.body).to include('Here is the details of user')
     end
   end
 end

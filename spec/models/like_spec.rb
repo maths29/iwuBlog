@@ -2,10 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Like, type: :model do
   let!(:user) { User.create(name: 'Kidshan', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Software Developer from potland.') }
-  
-  let!(:post) { Post.create(Title: 'hello world', text: 'Hello world paragraph', author: user, likes_counter:0, comments_counter:0) }
-  
-  subject(:like) { Like.new(user:user, post:post) }
+
+  let!(:post) do
+    Post.create(Title: 'hello world', text: 'Hello world paragraph', author: user, likes_counter: 0,
+                comments_counter: 0)
+  end
+
+  subject(:like) { Like.new(user:, post:) }
   before { like.save }
   it 'should be valid like' do
     expect(like).to be_valid

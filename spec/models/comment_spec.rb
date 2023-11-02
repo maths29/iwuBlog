@@ -2,10 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
   let!(:user) { User.create(name: 'marry', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Software Developer from Spain.') }
-  
-  let!(:post) { Post.create(Title: 'hello world', text: 'Hello world paragraph', author: user, comments_counter:0, likes_counter:0) }
-  
-  subject(:comment) { Comment.new(user:user, post:post, text: 'this  is my comment') }
+
+  let!(:post) do
+    Post.create(Title: 'hello world', text: 'Hello world paragraph', author: user, comments_counter: 0,
+                likes_counter: 0)
+  end
+
+  subject(:comment) { Comment.new(user:, post:, text: 'this  is my comment') }
   before { comment.save }
 
   it 'should be valid comment' do
