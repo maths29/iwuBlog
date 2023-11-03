@@ -2,14 +2,12 @@ class UsersController < ApplicationController
   # def index; end
   # def show; end
 
-  layout 'standard'
   def index
-    @users = User.order(id: :asc)
+    @users = User.all
   end
 
   def show
-    def show
-      @user = User.find(params[:id])
-    end
+    @user = User.includes(posts: %i[comments user]).find(params[:id])
+    @posts = @user.recentposts
   end
 end
