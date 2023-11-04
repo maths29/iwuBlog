@@ -1,7 +1,7 @@
 <section class="my-bio bg-secondary bg-gradient">
     <div class="container">
         <div class="row">
-            <%= render partial: 'user', locals: { user: @user } %>
+        <%= render partial: 'users/user', locals: { user: @user } %>
         </div>
         <% @posts.each do |post| %> 
             <div class="card my-4">
